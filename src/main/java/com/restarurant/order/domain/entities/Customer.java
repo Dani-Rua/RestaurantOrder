@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @AllArgsConstructor
@@ -18,6 +19,10 @@ public class Customer {
 
     @Id
     private String customerId;
+
+    @Field(name = "username")
     private String username;
+
+    @Field(name = "email")
     private String email;
 }
