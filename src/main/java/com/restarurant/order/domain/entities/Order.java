@@ -9,8 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ public class Order {
 
     @Id
     private String orderId;
-    
-    @DBRef(lazy = false)
     private Customer customer;
     private List<OrderItem> orderItems;
     private DeliveryAddress deliveryAddress;
+
+    @Field(name = "orderAmount")
     private OrderAmountTotal orderAmount;
     private OrderStatus orderStatus;
 }
