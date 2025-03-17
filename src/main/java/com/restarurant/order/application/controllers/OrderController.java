@@ -1,23 +1,30 @@
 package com.restarurant.order.application.controllers;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.restarurant.order.application.services.OrderService;
+import com.restarurant.order.application.services.impl.OrderServiceImpl;
+import com.restarurant.order.domain.entities.Order;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/order")
-
+@RequestMapping("/api/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
+
     @PostMapping("/save")
-    public String getOrder(){
-        return "Se ha creado una orden";
+    public ResponseEntity<Order> createOrder(@RequestBody Order request) {
+        return orderService.createNewOrder(request)
+                .map(order -> ResponseEntity.ok().body(order))
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @PutMapping("/update")
-    public String createOrder(){
+    public String updateOrder(){
         return "Se ha actualizado una orden";
     }
 }

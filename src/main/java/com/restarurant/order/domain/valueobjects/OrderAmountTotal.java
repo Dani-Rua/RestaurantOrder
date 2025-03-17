@@ -5,14 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "orderAmountTotal")
+
 public class OrderAmountTotal {
 
+    @Field(name = "amount")
     private double amount;
 }
