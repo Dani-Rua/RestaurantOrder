@@ -19,4 +19,11 @@ public class OrderItem {
 
     @Field(name = "quantity")
     private int quantity;
+
+    @Field(name = "price")
+    private double price;
+
+    public double calculateTotal() {
+        return quantity * price;
+    }
 }
