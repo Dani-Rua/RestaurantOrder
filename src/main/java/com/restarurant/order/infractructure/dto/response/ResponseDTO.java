@@ -1,4 +1,4 @@
-package com.restarurant.order.domain.dto.response;
+package com.restarurant.order.infractructure.dto.response;
 
 import com.restarurant.order.domain.entities.OrderItem;
 import com.restarurant.order.domain.valueobjects.DeliveryAddress;

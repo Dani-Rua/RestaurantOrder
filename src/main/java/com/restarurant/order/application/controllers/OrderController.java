@@ -1,8 +1,7 @@
 package com.restarurant.order.application.controllers;
 
 
-import com.restarurant.order.application.services.OrderService;
-import com.restarurant.order.domain.dto.response.ResponseDTO;
+import com.restarurant.order.application.services.IOrderService;
 import com.restarurant.order.domain.entities.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+    private final IOrderService orderService;
 
     @PostMapping("/save")
     public ResponseEntity<Order> createOrder(@RequestBody Order request) {
@@ -22,8 +21,10 @@ public class OrderController {
                 .orElse(ResponseEntity.badRequest().build());
     }
 
-    @PutMapping("/update")
-    public String updateOrder(){
-        return "Se ha actualizado una orden";
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order updateOrder){
+        return orderService.updateOrder(id, updateOrder)
+                .map(order -> ResponseEntity.ok().body(order))
+                .orElse(ResponseEntity.notFound().build());
     }
 }

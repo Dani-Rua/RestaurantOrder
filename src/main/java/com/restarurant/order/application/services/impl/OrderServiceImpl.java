@@ -1,6 +1,6 @@
 package com.restarurant.order.application.services.impl;
 
-import com.restarurant.order.application.services.OrderService;
+import com.restarurant.order.application.services.IOrderService;
 import com.restarurant.order.domain.entities.Order;
 import com.restarurant.order.domain.entities.OrderItem;
 import com.restarurant.order.domain.repositories.OrderRepository;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements IOrderService {
 
     private final OrderRepository orderRepository;
 
@@ -43,5 +43,23 @@ public class OrderServiceImpl implements OrderService {
 
         return Optional.ofNullable(order)
                 .map(orderRepository::save);
+    }
+
+    @Override
+    public Optional<Order> updateOrder(String id, Order updateOrder) {
+        return orderRepository.findById(id)
+                .map(existOrder -> {
+                    Order update = Order.builder()
+                            .orderId(existOrder.getOrderId())
+                            .customer(Optional.ofNullable(updateOrder.getCustomer()).orElse(existOrder.getCustomer()))
+                            .orderItems(Optional.ofNullable(updateOrder.getOrderItems()).orElse(existOrder.getOrderItems()))
+                            .deliveryAddress(Optional.ofNullable(updateOrder.getDeliveryAddress()).orElse(existOrder.getDeliveryAddress()))
+                            .orderStatus(Optional.ofNullable(updateOrder.getOrderStatus()).orElse(existOrder.getOrderStatus()))
+                            .orderAmount(Optional.ofNullable(updateOrder.getOrderItems())
+                                    .map(items -> new OrderAmountTotal(items.stream().mapToDouble(OrderItem::calculateTotal).sum()))
+                                    .orElse(existOrder.getOrderAmount()))
+                            .build();
+                    return orderRepository.save(update);
+                });
     }
 }
