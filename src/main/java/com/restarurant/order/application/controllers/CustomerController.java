@@ -1,6 +1,6 @@
 package com.restarurant.order.application.controllers;
 
-import com.restarurant.order.application.services.CustomerService;
+import com.restarurant.order.application.services.ICustomerService;
 import com.restarurant.order.domain.entities.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private final ICustomerService customerService;
 
     @PostMapping("/save")
     public ResponseEntity<Customer>  createcustomer(@RequestBody Customer request){

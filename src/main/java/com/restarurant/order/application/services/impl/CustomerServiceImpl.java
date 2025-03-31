@@ -1,6 +1,6 @@
 package com.restarurant.order.application.services.impl;
 
-import com.restarurant.order.application.services.CustomerService;
+import com.restarurant.order.application.services.ICustomerService;
 import com.restarurant.order.domain.entities.Customer;
 import com.restarurant.order.domain.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl implements ICustomerService {
 
     private final CustomerRepository customerRepository;
 
