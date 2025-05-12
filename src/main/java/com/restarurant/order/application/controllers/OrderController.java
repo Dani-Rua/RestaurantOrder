@@ -14,7 +14,7 @@ public class OrderController {
 
     private final IOrderService orderService;
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<Order> createOrder(@RequestBody Order request) {
         return orderService.createNewOrder(request)
                 .map(order -> ResponseEntity.ok().body(order))
