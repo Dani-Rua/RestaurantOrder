@@ -16,7 +16,7 @@ public class CustomerController {
 
     private final ICustomerService customerService;
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<Customer>  createcustomer(@RequestBody Customer request){
         return customerService.createNewCustomer(request)
                 .map(customer -> ResponseEntity.ok().body(customer))
